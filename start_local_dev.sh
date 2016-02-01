@@ -110,7 +110,7 @@ fi
 
 IMAGE_ID=$(check_image_exists insight_database)
 if [ ! -z "$IMAGE_ID" ]; then
-  echo -e "\n\n${RED}RUN ${NC}python3 run_admissions_etl.py and then ${BLU}CTRL-C${NC} to continue ..."
+  echo -e "\n\n${RED}RUN ${NC}python3 run_admissions_etl.py and then ${BLU}CTRL-D${NC} to continue ..."
   docker run -it --rm --name insight_database --link postgres:insight_database \
              -v ${INSIGHT_DATABASE_PATH}:/usr/local/lib/python3.4/dist-packages/insight_database:ro \
              -v ${INSIGHT_TRELLO_PATH}:/usr/local/lib/python3.4/dist-packages/trello/:ro \
