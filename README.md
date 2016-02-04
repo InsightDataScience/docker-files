@@ -10,4 +10,8 @@ export INSIGHT_ADMISSIONS_PATH=/path/to/InsightAdmissions
 export INSIGHT_UTILS_PATH=/path/to/insight_utils
 export INSIGHT_KEYS_PATH=/path/to/.insight_keys
 export INSIGHT_CREDENTIALS_PATH=/path/to/.insight_credentials
+export PGRES_DB=insight
+export PGRES_HOST=172.17.0.2
+export PGRES_USER=postgres
+export PGRES_PASSWORD=mysecretpassword
 ```
