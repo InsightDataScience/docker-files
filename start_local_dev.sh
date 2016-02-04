@@ -101,7 +101,8 @@ fi
 
 IMAGE_ID=$(check_image_exists psql)
 if [ ! -z "$IMAGE_ID" ]; then
-  echo -e "\n${RED}You are in the Postgres Client container.${NC} Press ${BLU}CTRL-P${NC} then ${BLU}CTRL-Q${NC} to continue..."
+  echo -e "\n${RED}You are in the Postgres Client container.${NC}"
+  echo -e "Press ${BLU}CTRL-P${NC} then ${BLU}CTRL-Q${NC} to continue..."
   docker run -it --link postgres:psql --name psql psql
 else
   echo "psql image does not exist! Please build it from docker_files repo"
@@ -132,7 +133,7 @@ IMAGE_ID=$(check_image_exists pgweb)
 if [ ! -z "$IMAGE_ID" ]; then
   echo "starting the pgweb container..."
   docker run -d -p 8081:8081 \
-             -e DATABASE_URL=postgres://postgres:mysecretpassword@172.17.0.2:5432/insight?sslmode=disable \
+             -e DATABASE_URL=postgres://${PGRES_USER}:${PGRES_PASSWORD}@${PGRES_HOST}:5432/${PGRES_DB}?sslmode=disable \
              --link postgres:pgweb \
              --name pgweb pgweb > /dev/null
 else
