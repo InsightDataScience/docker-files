@@ -118,10 +118,10 @@ if [ ! -z "$IMAGE_ID" ]; then
              -v ${INSIGHT_UTILS_PATH}:/usr/local/lib/python3.4/dist-packages/insight_utils/:ro \
              -v ${INSIGHT_KEYS_PATH}:/root/.insight_keys \
              -v ${INSIGHT_CREDENTIALS_PATH}:/root/.insight_credentials \
-             -e PGRES_DB=insight \
-             -e PGRES_HOST=172.17.0.2 \
-             -e PGRES_USER=postgres \
-             -e PGRES_PASSWORD=mysecretpassword \
+             -e PGRES_DB=${PGRES_DB} \
+             -e PGRES_HOST=${PGRES_HOST} \
+             -e PGRES_USER=${PGRES_USER} \
+             -e PGRES_PASSWORD=${PGRES_PASSWORD} \
              insight_database
 else
   echo "insight_database image does not exist! ${RED}Please build it from ${NC}insight_database ${RED}repo${NC}"
