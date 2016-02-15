@@ -48,6 +48,11 @@ check_variables_and_folders () {
     echo "${INSIGHT_CREDENTIALS_PATH} does not exist"
     exit 1
   fi
+
+  if [ -z ${WUFOO_API_KEY} ]; then
+    echo "Please set the WUFOO_API_KEY in your .bash_profile."
+    exit 1
+  fi
 }
 
 remove_container () {
@@ -109,26 +114,6 @@ else
   exit 1
 fi
 
-IMAGE_ID=$(check_image_exists insight_database)
-if [ ! -z "$IMAGE_ID" ]; then
-  echo -e "\n\n${RED}RUN ${NC}python3 run_admissions_etl.py and then ${BLU}CTRL-D${NC} to continue ..."
-  docker run -it --rm --name insight_database --link postgres:insight_database \
-             -v ${INSIGHT_DATABASE_PATH}:/usr/local/lib/python3.4/dist-packages/insight_database:ro \
-             -v ${INSIGHT_TRELLO_PATH}:/usr/local/lib/python3.4/dist-packages/trello/:ro \
-             -v ${INSIGHT_ADMISSIONS_PATH}:/usr/local/lib/python3.4/dist-packages/InsightAdmissions/:ro \
-             -v ${INSIGHT_UTILS_PATH}:/usr/local/lib/python3.4/dist-packages/insight_utils/:ro \
-             -v ${INSIGHT_KEYS_PATH}:/root/.insight_keys \
-             -v ${INSIGHT_CREDENTIALS_PATH}:/root/.insight_credentials \
-             -e PGRES_DB=${PGRES_DB} \
-             -e PGRES_HOST=${PGRES_HOST} \
-             -e PGRES_USER=${PGRES_USER} \
-             -e PGRES_PASSWORD=${PGRES_PASSWORD} \
-             insight_database
-else
-  echo "insight_database image does not exist! ${RED}Please build it from ${NC}insight_database ${RED}repo${NC}"
-  exit 1
-fi
-
 IMAGE_ID=$(check_image_exists pgweb)
 if [ ! -z "$IMAGE_ID" ]; then
   echo "starting the pgweb container..."
@@ -141,4 +126,13 @@ else
   exit 1
 fi
 
+IMAGE_ID=$(check_image_exists insight_database)
+if [ ! -z "$IMAGE_ID" ]; then
+  echo -e "\n\ncd into /usr/local/lib/Python3.4/dist-packages/insight_database"
+  echo -e "${RED}RUN ${NC}python3 run_admissions_etl.py and then ${BLU}CTRL-D${NC} to continue ..."
+  bash ${INSIGHT_DATABASE_PATH}/run_insight_database.sh
+else
+  echo "insight_database image does not exist! ${RED}Please build it from ${NC}insight_database ${RED}repo${NC}"
+  exit 1
+fi
 
