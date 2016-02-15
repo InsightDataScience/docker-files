@@ -128,8 +128,8 @@ fi
 
 IMAGE_ID=$(check_image_exists insight_database)
 if [ ! -z "$IMAGE_ID" ]; then
-  echo -e "\n\ncd into /usr/local/lib/Python3.4/dist-packages/insight_database"
-  echo -e "${RED}RUN ${NC}python3 run_admissions_etl.py and then ${BLU}CTRL-D${NC} to continue ..."
+  echo -e "\n\nmove into ${RED}/usr/local/lib/python3.4/dist-packages/insight_database${NC}"
+  echo -e "Run ${RED}python3 run_admissions_etl.py${NC} and then ${BLU}CTRL-D${NC} to continue ..."
   bash ${INSIGHT_DATABASE_PATH}/run_insight_database.sh
 else
   echo "insight_database image does not exist! ${RED}Please build it from ${NC}insight_database ${RED}repo${NC}"
