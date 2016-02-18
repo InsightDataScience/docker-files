@@ -13,4 +13,4 @@ RUN apt-get update \
     && apt-get install -y python-dev \
     && apt-get install -y python-pip
 
-RUN pip install pdb ipython pylint hypothesis
+RUN pip install pdb ipython pylint hypothesis pytest pytest-cov
