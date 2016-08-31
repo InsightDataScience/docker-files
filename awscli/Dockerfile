@@ -8,4 +8,5 @@ MAINTAINER Austin Ouyang
 
 RUN pip install awscli
 RUN pip install --upgrade awscli
-RUN apt-get install -y groff
+RUN apt-get update \
+    && apt-get install -y groff
