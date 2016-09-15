@@ -9,7 +9,6 @@ MAINTAINER Ronak Nathani
 RUN apt-get update \
     && apt-get install -y python3 \
     && apt-get install -y python3-dev \
-    && apt-get install -y python3-pip \
-    && apt-get install -y python3-pandas
+    && apt-get install -y python3-pip
 
-RUN pip3 install pdb ipython pylint pytest pytest-cov
+RUN pip3 install pandas pdb ipython pylint pytest pytest-cov
